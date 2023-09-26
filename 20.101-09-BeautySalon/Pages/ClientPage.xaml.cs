@@ -1,5 +1,6 @@
 ﻿using _20._101_09_BeautySalon.Classes;
 using _20._101_09_BeautySalon.Models;
+using _20._101_09_BeautySalon.Windows;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -192,29 +193,29 @@ namespace _20._101_09_BeautySalon.Pages
         private void LViewClients_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             // Проверяем, открыто ли уже окно AddAndEditClient
-            //if (IsWindowOpen<AddAndEditClient>())
-            //{
-            //    MessageBox.Show("Окно Редактирования уже открыто.", "Предупреждение", MessageBoxButton.OK, MessageBoxImage.Warning);
-            //}
-            //else
-            //{
-            //    // Окно AddAndEditClient не открыто, открываем его
-            //    AddAndEditClient dlg = new AddAndEditClient(LViewAgents.SelectedItem as Client, db, this);
-            //    dlg.Show();
-            //}
+            if (IsWindowOpen<AddAndEditClient>())
+            {
+                MessageBox.Show("Окно Редактирования уже открыто.", "Предупреждение", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+            else
+            {
+                // Окно AddAndEditClient не открыто, открываем его
+                AddAndEditClient dlg = new AddAndEditClient(LViewClients.SelectedItem as Client, db, this);
+                dlg.Show();
+            }
         }
 
         private void BtnOpenServices_Click(object sender, RoutedEventArgs e)
         {
-            //try
-            //{
-            //    ClientServiceWindow dlg = new ClientServiceWindow(LViewAgents.SelectedItem as Client, db);
-            //    dlg.Show();
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show(ex.Message.ToString(), "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-            //}
+            try
+            {
+                ClientServiceWindow dlg = new ClientServiceWindow(LViewClients.SelectedItem as Client, db);
+                dlg.Show();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message.ToString(), "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private void back_Click(object sender, RoutedEventArgs e)
@@ -298,8 +299,8 @@ namespace _20._101_09_BeautySalon.Pages
 
         private void addButton_Click(object sender, RoutedEventArgs e)
         {
-            //AddAndEditClient dlg = new AddAndEditClient(null, db, this);
-            //dlg.Show();
+            AddAndEditClient dlg = new AddAndEditClient(null, db, this);
+            dlg.Show();
         }
 
         private void rebButton_Click(object sender, RoutedEventArgs e)

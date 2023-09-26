@@ -33,5 +33,53 @@ namespace _20._101_09_BeautySalon.Models
         public virtual ICollection<ClientService> ClientService { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ServicePhoto> ServicePhoto { get; set; }
+
+        public string ImgPath
+        {
+            get
+            {
+                var path = "/ImagesAndIcons/Услуги салона красоты/" + this.MainImagePath;
+                return path;
+            }
+        }
+
+        public int DurationInMin
+        {
+            get
+            {
+                return this.DurationInSeconds / 60;
+            }
+        }
+
+        public double DiscountCost
+        {
+            get
+            {
+                if (Discount.HasValue)
+                {
+                    decimal result = Cost / (decimal)this.Discount;
+                    return (double)(Cost - result);
+                }
+                else return (double)Cost;
+            }
+        }
+
+        public string DiscountText
+        {
+            get
+            {
+                if (this.Discount.HasValue) return $"*скидка {Discount}%";
+                else return "";
+            }
+        }
+
+        public string CostText
+        {
+            get
+            {
+                if (Discount.HasValue) return Cost.ToString();
+                else return "";
+            }
+        }
     }
 }

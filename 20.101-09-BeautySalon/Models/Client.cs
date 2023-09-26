@@ -73,7 +73,7 @@ namespace _20._101_09_BeautySalon.Models
         {
             get
             {
-                var path = "/ImagesAndIcons/" + this.PhotoPath;
+                var path = "/ImagesAndIcons/Услуги салона красоты/" + this.PhotoPath;
                 return path;
             }
         }

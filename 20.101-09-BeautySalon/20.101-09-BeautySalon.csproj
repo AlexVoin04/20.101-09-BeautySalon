@@ -84,6 +84,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Windows\ClientServiceWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Windows\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -148,6 +152,9 @@
     </Compile>
     <Compile Include="Windows\AddAndEditClient.xaml.cs">
       <DependentUpon>AddAndEditClient.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ClientServiceWindow.xaml.cs">
+      <DependentUpon>ClientServiceWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
