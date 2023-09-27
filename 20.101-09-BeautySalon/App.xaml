@@ -4,7 +4,14 @@
              xmlns:local="clr-namespace:_20._101_09_BeautySalon"
              StartupUri="Windows/MainWindow.xaml">
     <Application.Resources>
-        <Style TargetType="{x:Type Control}">
+        <Style TargetType="{x:Type Button}">
+            <Setter Property="BorderBrush" Value="White" />
+            <Setter Property="Background" Value="#FFFF4A6B" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="FontFamily" Value="Tahoma" />
+        </Style>
+        <Style TargetType="{x:Type TextBlock}">
             <Setter Property="FontFamily" Value="Tahoma" />
         </Style>
     </Application.Resources>

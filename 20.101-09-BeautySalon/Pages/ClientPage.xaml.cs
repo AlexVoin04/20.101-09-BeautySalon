@@ -107,7 +107,7 @@ namespace _20._101_09_BeautySalon.Pages
                     myButton.Width = 20;
                     myButton.Background = new SolidColorBrush(Colors.White);
                     myButton.BorderBrush = new SolidColorBrush(Colors.White);
-                    myButton.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFFF9C1A"));
+                    myButton.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFFF4A6B"));
                     myButton.Cursor = Cursors.Hand;
                     myButton.HorizontalAlignment = HorizontalAlignment.Center;
                     myButton.Tag = i;
