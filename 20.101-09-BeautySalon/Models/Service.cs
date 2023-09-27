@@ -77,7 +77,11 @@ namespace _20._101_09_BeautySalon.Models
         {
             get
             {
-                if (Discount.HasValue) return Cost.ToString();
+                if (Discount.HasValue)
+                {
+                    double cost = (double)Cost;
+                    return cost.ToString();
+                }
                 else return "";
             }
         }

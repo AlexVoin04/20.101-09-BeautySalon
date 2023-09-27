@@ -23,39 +23,44 @@
             <TextBlock x:Name="TbClientInfo"  FontSize="20"/>
 
         </StackPanel>
-        <StackPanel Grid.Row="1" x:Name="spServiceInfo" Margin="0,0,0,10">
-            <ListView x:Name="LViewService" Grid.Row="1" Margin="5, 5, 5, 5" d:ItemsSource="{d:SampleData ItemCount=1}">
-                <ListView.ItemContainerStyle>
-                    <Style TargetType="ListViewItem">
-                        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                    </Style>
-                </ListView.ItemContainerStyle>
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <Border BorderBrush="Black" BorderThickness="1">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="200"/>
-                                    <ColumnDefinition Width="*"/>
-                                </Grid.ColumnDefinitions>
-
-                                <Image Width="180" Height="100" Margin="5" Source ="{Binding Path=Service.ImgPath, FallbackValue={StaticResource defaultImage}}"/>
-
-                                <StackPanel Grid.Column="1" Margin="5">
-                                    <TextBlock Text="{Binding Path=Service.Title}" FontWeight="Bold"/>
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBlock Text="{Binding Path=Service.CostText}" TextDecorations="Strikethrough"/>
-                                        <TextBlock Text="{Binding Path=Service.DiscountCost, StringFormat='\ {0} рублей за '}"/>
-                                        <TextBlock Text="{Binding Path=Service.DurationInMin, StringFormat='\{0} минут'}"/>
-                                    </StackPanel>
-                                    <TextBlock Text="{Binding Path=Service.DiscountText}"/>
-                                    
-                                </StackPanel>
-                            </Grid>
-                        </Border>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+        <StackPanel Grid.Row="1" x:Name="spServiceInfo">
+            
         </StackPanel>
+
+        <ListView x:Name="LViewService" Grid.Row="1" Margin="5, 5, 5, 5" d:ItemsSource="{d:SampleData ItemCount=1}">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                </Style>
+            </ListView.ItemContainerStyle>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Border BorderBrush="Black" BorderThickness="1">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="200"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Image Width="180" Height="100" Margin="5" Source ="{Binding Path=Service.ImgPath, FallbackValue={StaticResource defaultImage}}"/>
+
+                            <StackPanel Grid.Column="1" Margin="5">
+                                <TextBlock Text="{Binding Path=Service.Title}" FontWeight="Bold"/>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="{Binding Path=Service.CostText}" TextDecorations="Strikethrough"/>
+                                    <TextBlock Text="{Binding Path=Service.DiscountCost, StringFormat='\ {0} рублей за '}"/>
+                                    <TextBlock Text="{Binding Path=Service.DurationInMin, StringFormat='\{0} минут'}"/>
+                                </StackPanel>
+                                <TextBlock Text="{Binding Path=Service.DiscountText}"/>
+                                <StackPanel Orientation="Horizontal" Margin="0,30,0,0">
+                                    <Button Width="100" x:Name="BtnRefrService" BorderBrush="White" Background="#FFFF4A6B"  Foreground="White" Cursor="Hand" Content="Редактировать"/>
+                                    <Button Width="100" x:Name="BtnDelService" BorderBrush="White" Background="#FFFF4A6B"  Foreground="White" Cursor="Hand" Content="Удалить"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
     </Grid>
 </Window>

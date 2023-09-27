@@ -4,6 +4,8 @@
              xmlns:local="clr-namespace:_20._101_09_BeautySalon"
              StartupUri="Windows/MainWindow.xaml">
     <Application.Resources>
-         
+        <Style TargetType="{x:Type Control}">
+            <Setter Property="FontFamily" Value="Tahoma" />
+        </Style>
     </Application.Resources>
 </Application>
