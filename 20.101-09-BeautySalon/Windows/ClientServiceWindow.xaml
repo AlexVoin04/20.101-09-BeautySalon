@@ -53,8 +53,8 @@
                                 </StackPanel>
                                 <TextBlock Text="{Binding Path=Service.DiscountText}"/>
                                 <StackPanel Orientation="Horizontal" Margin="0,30,0,0">
-                                    <Button Width="100" x:Name="BtnRefrService" BorderBrush="White" Background="#FFFF4A6B"  Foreground="White" Cursor="Hand" Content="Редактировать"/>
-                                    <Button Width="100" x:Name="BtnDelService" BorderBrush="White" Background="#FFFF4A6B"  Foreground="White" Cursor="Hand" Content="Удалить"/>
+                                    <Button Width="100" x:Name="BtnRefrService" BorderBrush="White" Background="#FFFF4A6B"  Foreground="White" Cursor="Hand" Content="Редактировать" Click="BtnRefrService_Click"/>
+                                    <Button Width="100" x:Name="BtnDelService" BorderBrush="White" Background="#FFFF4A6B"  Foreground="White" Cursor="Hand" Content="Удалить" Click="BtnDelService_Click"/>
                                 </StackPanel>
                             </StackPanel>
                         </Grid>

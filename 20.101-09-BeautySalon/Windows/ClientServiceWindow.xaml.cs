@@ -45,5 +45,52 @@ namespace _20._101_09_BeautySalon.Windows
                 spServiceInfo.Children.Add(tb);
             }
         }
+
+        private void BtnDelService_Click(object sender, RoutedEventArgs e)
+        {
+            if (LViewService.SelectedItems.Count > 0)
+            {
+                if (MessageBox.Show($"Вы действительно хотите удалить {LViewService.SelectedItems.Count} посещение(ий)?", "Внимание", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
+                {
+                    try
+                    {
+                        StringBuilder errors = new StringBuilder();
+                        var selected = LViewService.SelectedItems.Cast<Service>().ToArray();
+                        int serviceCount = 0;
+                        foreach (var item in selected)
+                        {
+
+                            db.Service.Remove(item);
+                            db.SaveChanges();
+                            serviceCount++;
+
+                        }
+                        if (errors.Length > 0)
+                        {
+                            MessageBox.Show(errors.ToString());
+                        }
+                        if (serviceCount != 0)
+                        {
+                            MessageBox.Show($"Удалено сервисов: {serviceCount}", "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
+                        }
+                        LViewService.ItemsSource = this.client.ServiceList;
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message.ToString(), "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                }
+
+            }
+            else
+            {
+                MessageBox.Show("Выберите сервис для удаления", "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+        }
+
+        private void BtnRefrService_Click(object sender, RoutedEventArgs e)
+        {
+            
+        }
     }
 }
