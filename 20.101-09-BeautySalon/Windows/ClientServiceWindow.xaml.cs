@@ -1,4 +1,5 @@
 ﻿using _20._101_09_BeautySalon.Models;
+using _20._101_09_BeautySalon.Pages;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,20 +23,27 @@ namespace _20._101_09_BeautySalon.Windows
     {
         Client client = new Client();
         private Entities db;
-        public ClientServiceWindow(Client client, Entities db)
+        private ClientPage clientPage;
+        public ClientServiceWindow(Client client, Entities db, ClientPage clientPage)
         {
             InitializeComponent();
             this.client = client;
             this.db = db;
+            this.clientPage = clientPage;
             DataContext = this.client;
+            Load();
+        }
+
+        public void Load()
+        {
             TbClientInfo.Text = $"{client.FirstName} {client.LastName} {client.Patronymic}({client.ID})";
             if (client.ServiceList.Count > 0)
             {
-                LViewService.ItemsSource = this.client.ServiceList;
+                LViewService.ItemsSource = client.ServiceList;
             }
             else
             {
-                LViewService.Visibility = Visibility.Collapsed;
+                LViewService.Visibility = Visibility.Hidden;
                 spServiceInfo.Children.Clear();
                 TextBlock tb = new TextBlock();
                 tb.Text = "У данного клиента нет посещений";
@@ -55,7 +63,7 @@ namespace _20._101_09_BeautySalon.Windows
                     try
                     {
                         StringBuilder errors = new StringBuilder();
-                        var selected = LViewService.SelectedItems.Cast<Service>().ToArray();
+                        var selected = LViewService.SelectedItems.Cast<ClientService>().ToArray();
                         int serviceCount = 0;
                         foreach (var item in selected)
                         {
@@ -72,7 +80,7 @@ namespace _20._101_09_BeautySalon.Windows
                         {
                             MessageBox.Show($"Удалено сервисов: {serviceCount}", "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
                         }
-                        LViewService.ItemsSource = this.client.ServiceList;
+                        Load();
                     }
                     catch (Exception ex)
                     {
@@ -97,7 +105,7 @@ namespace _20._101_09_BeautySalon.Windows
                     var service = db.Service.Where(s => s.ID == clientService.ServiceID).First();
                     if (service != null)
                     {
-                        EditService dlg = new EditService(service, db);
+                        EditService dlg = new EditService(service, db, this);
                         dlg.Show();
                     }
                 }
@@ -112,6 +120,21 @@ namespace _20._101_09_BeautySalon.Windows
             }
             
             
+        }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            try
+            {
+                if (clientPage != null)
+                {
+                    clientPage.Load(); // Вызываем метод на ClientPage
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message.ToString(), "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
     }
 }

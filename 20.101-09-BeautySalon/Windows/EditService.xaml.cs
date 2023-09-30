@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using _20._101_09_BeautySalon.Classes;
 using _20._101_09_BeautySalon.Models;
+using _20._101_09_BeautySalon.Pages;
 using Microsoft.Win32;
 using Mono.Cecil;
 
@@ -27,11 +28,13 @@ namespace _20._101_09_BeautySalon.Windows
     {
         Service service = new Service();
         Entities db;
-        public EditService(Service service, Entities db)
+        ClientServiceWindow clientServiceWindow;
+        public EditService(Service service, Entities db, ClientServiceWindow clientServiceWindow)
         {
             InitializeComponent();
             this.service = service;
             this.db = db;
+            this.clientServiceWindow = clientServiceWindow;
             DataContext = service;
         }
 
@@ -103,6 +106,7 @@ namespace _20._101_09_BeautySalon.Windows
                     MessageBox.Show(errors.ToString());
                     return;
                 }
+                if (TbDiscountServ.Text == "") service.Discount = null;
                 SaveInDB("Обновление информации о сервисе завершено");
                 
             }
@@ -170,6 +174,21 @@ namespace _20._101_09_BeautySalon.Windows
         private void TbDescriptionServ_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             e.Handled = !ValidatorExtensions.IsValidTitle(e.Text);
+        }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            try
+            {
+                if (clientServiceWindow != null)
+                {
+                    clientServiceWindow.Load(); // Вызываем метод на ClientPage
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message.ToString(), "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
     }
 }

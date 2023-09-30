@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:_20._101_09_BeautySalon.Windows" xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
-        Title="Посещения клиента" Height="650" Width="1000" MinHeight="650" MinWidth="1000" Icon="/ImagesAndIcons/beauty_logo.ico" WindowStartupLocation = "CenterScreen">
+        Title="Посещения клиента" Height="650" Width="1000" MinHeight="650" MinWidth="1000" Icon="/ImagesAndIcons/beauty_logo.ico" WindowStartupLocation = "CenterScreen" Closed="Window_Closed">
     
     <Window.Resources>
         <sys:String x:Key="defaultImage">

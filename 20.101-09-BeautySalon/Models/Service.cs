@@ -57,8 +57,8 @@ namespace _20._101_09_BeautySalon.Models
             {
                 if (Discount.HasValue)
                 {
-                    decimal result = Cost / (decimal)this.Discount;
-                    return (double)(Cost - result);
+                    decimal result = Cost / 100;
+                    return (double)(Cost - result* (decimal)this.Discount);
                 }
                 else return (double)Cost;
             }
