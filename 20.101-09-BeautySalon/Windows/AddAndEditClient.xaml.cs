@@ -75,7 +75,7 @@ namespace _20._101_09_BeautySalon.Windows
                 var asmName = new AssemblyNameDefinition("DynamicAssembly", new Version(1, 0, 0, 0));
                 var assembly = AssemblyDefinition.CreateAssembly(asmName, "<Module>", ModuleKind.Dll);
                 OpenFileDialog GetImageDialog = new OpenFileDialog(); // Открытие диалогового окна
-                string folderpath = System.IO.Directory.GetParent(Environment.CurrentDirectory).Parent.FullName + "\\ImageAndIcon\\agents\\";
+                string folderpath = System.IO.Directory.GetParent(Environment.CurrentDirectory).Parent.FullName + "\\ImagesAndIcons\\Услуги салона красоты\\";
                 GetImageDialog.Title = "Выберите изображение";
                 GetImageDialog.Filter = "Файлы изображений: (*.png,*.jpg,*.jpeg)| *.png;*.jpg;*.jpeg"; // Фильтр типов файлов
                 GetImageDialog.InitialDirectory = folderpath;

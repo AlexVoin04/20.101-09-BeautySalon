@@ -59,8 +59,7 @@ namespace _20._101_09_BeautySalon.Windows
                         int serviceCount = 0;
                         foreach (var item in selected)
                         {
-
-                            db.Service.Remove(item);
+                            db.ClientService.Remove(db.ClientService.Where(cs => cs.ServiceID == item.ID || cs.ClientID == client.ID).First());
                             db.SaveChanges();
                             serviceCount++;
 
@@ -90,6 +89,28 @@ namespace _20._101_09_BeautySalon.Windows
 
         private void BtnRefrService_Click(object sender, RoutedEventArgs e)
         {
+            try
+            {
+                if (LViewService.SelectedItem != null)
+                {
+                    ClientService clientService = LViewService.SelectedItem as ClientService;
+                    var service = db.Service.Where(s => s.ID == clientService.ServiceID).First();
+                    if (service != null)
+                    {
+                        EditService dlg = new EditService(service, db);
+                        dlg.Show();
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Выберите сервис для изменения", "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message.ToString(), "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            
             
         }
     }
