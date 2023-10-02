@@ -94,58 +94,43 @@ namespace _20._101_09_BeautySalon.Windows
 
         private void btnRefrSer_Click(object sender, RoutedEventArgs e)
         {
-            //try
-            //{
-            //    StringBuilder errors = new StringBuilder();
-            //    Errors(Int32.Parse(TbDiscountServ.Text) > 100, errors, "Скидка не может быть больше 100%!");
-            //    Errors(TbTitleServ.Text == ""
-            //        || TbDurationInSecondsServ.Text == ""
-            //        || TbCostServ.Text == "", errors, "Не заполнена важная ифнормация!");
-            //    if (errors.Length > 0)
-            //    {
-            //        MessageBox.Show(errors.ToString());
-            //        return;
-            //    }
-            //    if (TbDiscountServ.Text == "") service.Discount = null;
-            //    SaveInDB("Обновление информации о сервисе завершено");
-
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show(ex.Message.ToString(), "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-            //}
-            StringBuilder errors = new StringBuilder();
-            if(int.TryParse(TbDiscountServ.Text, out int discount))
+            try
             {
-                Errors(discount > 100, errors, "Скидка не может быть больше 100%!");
-            } 
-            Errors(TbTitleServ.Text == ""
-                || TbDurationInSecondsServ.Text == ""
-                || TbCostServ.Text == "", errors, "Не заполнена важная ифнормация!");
-            if (errors.Length > 0)
-            {
-                MessageBox.Show(errors.ToString());
-                return;
+                StringBuilder errors = new StringBuilder();
+                if (int.TryParse(TbDiscountServ.Text, out int discount))
+                {
+                    Errors(discount > 100, errors, "Скидка не может быть больше 100%!");
+                }
+                Errors(TbTitleServ.Text == ""
+                    || TbDurationInSecondsServ.Text == ""
+                    || TbCostServ.Text == "", errors, "Не заполнена важная ифнормация!");
+                if (errors.Length > 0)
+                {
+                    MessageBox.Show(errors.ToString());
+                    return;
+                }
+                if (TbDiscountServ.Text == "") service.Discount = null;
+                SaveInDB("Обновление информации о сервисе завершено");
             }
-            if (TbDiscountServ.Text == "") service.Discount = null;
-            SaveInDB("Обновление информации о сервисе завершено");
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message.ToString(), "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            
         }
 
         private void SaveInDB(string text)
         {
-            //try
-            //{
-            //    db.SaveChanges();
-            //    this.Close();
-            //    MessageBox.Show(text, "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show(ex.Message.ToString(), "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-            //}
-            db.SaveChanges();
-            this.Close();
-            MessageBox.Show(text, "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
+            try
+            {
+                db.SaveChanges();
+                this.Close();
+                MessageBox.Show(text, "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message.ToString(), "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private void btnDelSer_Click(object sender, RoutedEventArgs e)
@@ -164,34 +149,93 @@ namespace _20._101_09_BeautySalon.Windows
 
         private void TbTitleServ_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-            e.Handled = !ValidatorExtensions.IsValidTitle(e.Text);
+            if (TbTitleServ.Text.Length >= 50 && !e.Text.Equals("\b"))
+            {
+                e.Handled = true;
+            }
+            else
+            {
+                e.Handled = !ValidatorExtensions.IsValidTitle(e.Text);
+            }
+            
         }
 
         private void TbDurationInSecondsServ_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-            e.Handled = !ValidatorExtensions.IsValidDiscount(e.Text);
+            if (TbDurationInSecondsServ.Text.Length >= 9 && !e.Text.Equals("\b"))
+            {
+                e.Handled = true;
+            }
+            else
+            {
+                e.Handled = !ValidatorExtensions.IsValidCost(e.Text);
+            }
         }
 
         private void TbCostServ_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-            e.Handled = !ValidatorExtensions.IsValidCost(e.Text);
+            //if (TbCostServ.Text.Length >= 11 && !e.Text.Equals("\b"))
+            //{
+            //    e.Handled = true;
+            //}
+            //else
+            //{
+            //    e.Handled = !ValidatorExtensions.IsValidCost(e.Text);
+            //}
+            if (TbCostServ.Text.Contains(".") && e.Text == ".")
+            {
+                // Запретить ввод более одной точки.
+                e.Handled = true;
+            }
+            else if (TbCostServ.Text.Length >= 11 && !e.Text.Equals("\b"))
+            {
+                // Запретить ввод более 11 символов (если нужно).
+                e.Handled = true;
+            }
+            else
+            {
+                // Проверить, что новый текст валиден.
+                string newText = TbCostServ.Text.Insert(TbCostServ.CaretIndex, e.Text);
+                e.Handled = !ValidatorExtensions.IsValidCost(newText);
+            }
         }
 
         private void TbDiscountServ_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
+            //if (TbDiscountServ.Text.Length >= 3 && !e.Text.Equals("\b"))
+            //{
+            //    e.Handled = true;
+            //}
+            //else
+            //{
+            //    e.Handled = !ValidatorExtensions.IsValidDiscount(e.Text);
+            //}
             if (TbDiscountServ.Text.Length >= 3 && !e.Text.Equals("\b"))
             {
                 e.Handled = true;
             }
             else
             {
-                e.Handled = !ValidatorExtensions.IsValidDiscount(e.Text);
+                string newText = TbDiscountServ.Text.Insert(TbDiscountServ.CaretIndex, e.Text);
+
+                // Проверьте, что новый текст является допустимым числом и меньше или равен 100.
+                if (!ValidatorExtensions.IsValidDiscount(newText) || (int.TryParse(newText, out int discount) && discount > 100))
+                {
+                    e.Handled = true;
+                }
             }
         }
 
         private void TbDescriptionServ_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-            e.Handled = !ValidatorExtensions.IsValidTitle(e.Text);
+            if (TbDescriptionServ.Text.Length >= 200 && !e.Text.Equals("\b"))
+            {
+                e.Handled = true;
+            }
+            else
+            {
+                e.Handled = !ValidatorExtensions.IsValidTitle(e.Text);
+            }
         }
 
         private void Window_Closed(object sender, EventArgs e)
@@ -200,7 +244,7 @@ namespace _20._101_09_BeautySalon.Windows
             {
                 if (clientServiceWindow != null)
                 {
-                    clientServiceWindow.Load(); // Вызываем метод на ClientPage
+                    clientServiceWindow.Load(); 
                 }
             }
             catch (Exception ex)

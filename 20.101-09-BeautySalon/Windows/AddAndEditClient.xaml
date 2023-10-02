@@ -113,7 +113,7 @@
 
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5,0,0,0">
                     <StackPanel Orientation="Vertical">
-                        <TextBox x:Name="tbTitleTag" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="266" Height="22">
+                        <TextBox x:Name="tbTitleTag" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="266" Height="22" PreviewTextInput="tbTitleTag_PreviewTextInput">
                             <TextBox.Style>
                                 <Style TargetType="TextBox" xmlns:sys="clr-namespace:System;assembly=mscorlib">
                                     <Style.Resources>

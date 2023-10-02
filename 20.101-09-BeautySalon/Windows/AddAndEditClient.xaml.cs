@@ -116,17 +116,20 @@ namespace _20._101_09_BeautySalon.Windows
 
         private void tbFirstName_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-            e.Handled = !ValidatorExtensions.IsValidFIO(e.Text);
+            CountAndValidText(tbFirstName, e, 50, !ValidatorExtensions.IsValidFIO(e.Text));
+            //e.Handled = !ValidatorExtensions.IsValidFIO(e.Text);
         }
 
         private void tbLastName_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-            e.Handled = !ValidatorExtensions.IsValidFIO(e.Text);
+            CountAndValidText(tbLastName, e, 50, !ValidatorExtensions.IsValidFIO(e.Text));
+            //e.Handled = !ValidatorExtensions.IsValidFIO(e.Text);
         }
 
         private void tbPatronymic_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-            e.Handled = !ValidatorExtensions.IsValidFIO(e.Text);
+            CountAndValidText(tbPatronymic, e, 50, !ValidatorExtensions.IsValidFIO(e.Text));
+            //e.Handled = !ValidatorExtensions.IsValidFIO(e.Text);
         }
 
         private void tbEmail_PreviewTextInput(object sender, TextCompositionEventArgs e)
@@ -134,9 +137,21 @@ namespace _20._101_09_BeautySalon.Windows
             e.Handled = !ValidatorExtensions.IsValidEmailAddress(e.Text);
         }
 
+        private void CountAndValidText(TextBox textBox, TextCompositionEventArgs e, int count, bool valid)
+        {
+            if (textBox.Text.Length >= count && !e.Text.Equals("\b"))
+            {
+                e.Handled = true;
+            }
+            else
+            {
+                e.Handled = valid;
+            }
+        }
         private void Phone_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-            e.Handled = !ValidatorExtensions.IsValidPhone(e.Text);
+            CountAndValidText(tbPhone, e, 18, !ValidatorExtensions.IsValidPhone(e.Text));
+            //e.Handled = !ValidatorExtensions.IsValidPhone(e.Text);
         }
 
         private void RefrData()
@@ -165,9 +180,6 @@ namespace _20._101_09_BeautySalon.Windows
             {
                 StringBuilder errors = new StringBuilder();
                 Errors(cmbGender.SelectedItem == null, errors, "Выберите пол клиента!");
-                Errors(tbFirstName.Text.Count() > 50, errors, "Фамилия не может быть длиннее 50 символов!");
-                Errors(tbLastName.Text.Count() > 50, errors, "Имя не может быть длиннее 50 символов!");
-                Errors(tbPatronymic.Text.Count() > 50, errors, "Отчество не может быть длиннее 50 символов!");
                 Errors(ValidatorExtensions.IsValidEmailAddress(tbEmail.Text), errors, "Email адрес не действителен");
                 Errors(tbFirstName.Text == ""
                     || tbLastName.Text == ""
@@ -293,6 +305,11 @@ namespace _20._101_09_BeautySalon.Windows
             {
                 MessageBox.Show("Выберите теги для удаления", "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
             }
+        }
+
+        private void tbTitleTag_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            CountAndValidText(tbTitleTag, e, 50, !ValidatorExtensions.IsValidTitle(e.Text));
         }
     }
 }
