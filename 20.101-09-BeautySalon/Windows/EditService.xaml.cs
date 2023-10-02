@@ -94,40 +94,58 @@ namespace _20._101_09_BeautySalon.Windows
 
         private void btnRefrSer_Click(object sender, RoutedEventArgs e)
         {
-            try
+            //try
+            //{
+            //    StringBuilder errors = new StringBuilder();
+            //    Errors(Int32.Parse(TbDiscountServ.Text) > 100, errors, "Скидка не может быть больше 100%!");
+            //    Errors(TbTitleServ.Text == ""
+            //        || TbDurationInSecondsServ.Text == ""
+            //        || TbCostServ.Text == "", errors, "Не заполнена важная ифнормация!");
+            //    if (errors.Length > 0)
+            //    {
+            //        MessageBox.Show(errors.ToString());
+            //        return;
+            //    }
+            //    if (TbDiscountServ.Text == "") service.Discount = null;
+            //    SaveInDB("Обновление информации о сервисе завершено");
+
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show(ex.Message.ToString(), "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            //}
+            StringBuilder errors = new StringBuilder();
+            if(int.TryParse(TbDiscountServ.Text, out int discount))
             {
-                StringBuilder errors = new StringBuilder();
-                Errors(Int32.Parse(TbDiscountServ.Text) > 100, errors, "Скидка не может быть больше 100%!");
-                Errors(TbTitleServ.Text == ""
-                    || TbDurationInSecondsServ.Text == ""
-                    || TbCostServ.Text == "", errors, "Не заполнена важная ифнормация!");
-                if (errors.Length > 0)
-                {
-                    MessageBox.Show(errors.ToString());
-                    return;
-                }
-                if (TbDiscountServ.Text == "") service.Discount = null;
-                SaveInDB("Обновление информации о сервисе завершено");
-                
-            }
-            catch (Exception ex)
+                Errors(discount > 100, errors, "Скидка не может быть больше 100%!");
+            } 
+            Errors(TbTitleServ.Text == ""
+                || TbDurationInSecondsServ.Text == ""
+                || TbCostServ.Text == "", errors, "Не заполнена важная ифнормация!");
+            if (errors.Length > 0)
             {
-                MessageBox.Show(ex.Message.ToString(), "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(errors.ToString());
+                return;
             }
+            if (TbDiscountServ.Text == "") service.Discount = null;
+            SaveInDB("Обновление информации о сервисе завершено");
         }
 
         private void SaveInDB(string text)
         {
-            try
-            {
-                db.SaveChanges();
-                this.Close();
-                MessageBox.Show(text, "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message.ToString(), "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
+            //try
+            //{
+            //    db.SaveChanges();
+            //    this.Close();
+            //    MessageBox.Show(text, "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show(ex.Message.ToString(), "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            //}
+            db.SaveChanges();
+            this.Close();
+            MessageBox.Show(text, "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         private void btnDelSer_Click(object sender, RoutedEventArgs e)
